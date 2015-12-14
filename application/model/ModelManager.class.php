@@ -63,7 +63,7 @@ class ModelManager {
 
 		$m->id = $db->lastInsertId();
 		return true;
-
+	//wtf
 	}
 
 	/**
