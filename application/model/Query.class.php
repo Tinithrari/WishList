@@ -30,16 +30,16 @@ abstract class Query {
 
 
 	/**
-	 * 
+	 * @param int $id
 	 */
-	public function findById(){
+	public function findById(int $id){
 		// TODO: implement here
 	}
 
 	/**
-	 * 
+	 * @param String condition
 	 */
-	public function prepareFindWIth(){
+	public function prepareFindWith(String $condition){
 		// TODO: implement here
 	}
 
