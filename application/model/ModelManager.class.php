@@ -46,7 +46,7 @@ class ModelManager {
 			return false;
 
 		$tablename=get_class($m);
-		$sql = "INSERT INTO ".$tablename."values(NULL";
+		$sql = "INSERT INTO ".$tablename." values(NULL";
 
 		$var=get_class_vars($tablename);
 		for($i = 0; $i < count($var); $i++)
@@ -63,14 +63,39 @@ class ModelManager {
 
 		$m->id = $db->lastInsertId();
 		return true;
-	//wtf
+
 	}
 
 	/**
 	 * @param \model\Model $m
 	 */
 	private function update($m){
-		// TODO: implement here
+		if ($m==null || !$m instanceof \model\Model)
+			return false;
+
+		$tablename=get_class($m);
+		$sql = "UPDATE ".$tablename." SET ";
+
+		$var=get_class_vars($tablename);
+		$first = true;
+		for($i = 0; $i < count($var); $i++){
+			if (!$first)
+				$sql.=",";
+			$sql.= "?=?";
+		}
+		$sql.="WHERE id = ?";
+
+		$values=array();
+		foreach($var as $k => $v) {
+			$values[]=$k;
+			$values[] = $m->$k;
+		}
+		$values[]=$m->id;
+		$db = Database::getInstance();
+		$db->prepare($sql);
+		$db->execute($values);
+
+		return true;
 	}
 
 	/**
