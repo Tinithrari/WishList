@@ -31,7 +31,7 @@ class Database {
 	/**
 	 * 
 	 */
-	private function getInstance(){
+	public static function getInstance(){
 		// TODO: implement here
 	}
 

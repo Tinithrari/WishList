@@ -1,6 +1,7 @@
 <?php
 
 namespace model;
+include_once("Database.class.php");
 
 /**
  *
@@ -14,7 +15,7 @@ class ModelManager {
 	 *
 	 *
 	 */
-	public function __construct() {
+	private function __construct() {
 	}
 
 	/**
@@ -26,28 +27,49 @@ class ModelManager {
 	/**
 	 * @param \model\Model $m
 	 */
-	public function save(\model\Model $m){
+	public function save($m){
 		// TODO: implement here
 	}
 
 	/**
 	 * @param \model\Model $m
 	 */
-	public function delete(\model\Model $m){
+	public function delete($m){
 		// TODO: implement here
 	}
 
 	/**
 	 * @param \model\Model $m
 	 */
-	private function insert(\model\Model $m){
-		// TODO: implement here
+	private function insert($m){
+		if ($m==null || !$m instanceof \model\Model)
+			return false;
+
+		$tablename=get_class($m);
+		$sql = "INSERT INTO ".$tablename."values(NULL";
+
+		$var=get_class_vars($tablename);
+		for($i = 0; $i < count($var); $i++)
+			$sql.=",?";
+		$sql.=")";
+
+		$values=array();
+		foreach($var as $k => $v)
+			$values[] = $m->$k;
+
+		$db = Database::getInstance();
+		$db->prepare($sql);
+		$db->execute($values);
+
+		$m->id = $db->lastInsertId();
+		return true;
+
 	}
 
 	/**
 	 * @param \model\Model $m
 	 */
-	private function update(\model\Model $m){
+	private function update($m){
 		// TODO: implement here
 	}
 
@@ -55,7 +77,10 @@ class ModelManager {
 	 * 
 	 */
 	public static function getInstance(){
-		// TODO: implement here
+		if (!isset(ModelManager::$instance))
+			ModelManager::$instance = new ModelManager();
+
+		return ModelManager::$instance;
 	}
 
 }
