@@ -2,7 +2,7 @@
 
 namespace model;
 include_once("Database.class.php");
-
+include_once("Model.class.php");
 /**
  *
  *
@@ -28,14 +28,27 @@ class ModelManager {
 	 * @param \model\Model $m
 	 */
 	public function save($m){
-		// TODO: implement here
+		if ($m == null)
+            return;
+
+        if ($m->isNew())
+            $this->insert($m);
+        else
+            $this->update($m);
 	}
 
 	/**
 	 * @param \model\Model $m
 	 */
 	public function delete($m){
-		// TODO: implement here
+		if ($m == null || !$m instanceof \model\Model)
+			return;
+
+		$tablename = get_class($m);
+		$sql = "DELETE FROM ".$tablename." WHERE id=".$m->id;
+		$db = Database::getInstance();
+		$db->prepare($sql);
+		$db->execute(array());
 	}
 
 	/**
@@ -43,7 +56,7 @@ class ModelManager {
 	 */
 	private function insert($m){
 		if ($m==null || !$m instanceof \model\Model)
-			return false;
+			return;
 
 		$tablename=get_class($m);
 		$sql = "INSERT INTO ".$tablename." values(NULL";
@@ -62,7 +75,6 @@ class ModelManager {
 		$db->execute($values);
 
 		$m->id = $db->lastInsertId();
-		return true;
 
 	}
 
@@ -71,7 +83,7 @@ class ModelManager {
 	 */
 	private function update($m){
 		if ($m==null || !$m instanceof \model\Model)
-			return false;
+			return;
 
 		$tablename=get_class($m);
 		$sql = "UPDATE ".$tablename." SET ";
@@ -94,8 +106,6 @@ class ModelManager {
 		$db = Database::getInstance();
 		$db->prepare($sql);
 		$db->execute($values);
-
-		return true;
 	}
 
 	/**
