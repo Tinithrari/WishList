@@ -2,26 +2,38 @@
 
 namespace model;
 include_once("Database.class.php");
-include_once("Model.class.php")
+include_once("Model.class.php");
 /**
  * 
  */
 abstract class Query {
 
-	/**
-	 * @var String
-	 */
-	private $tableName;
 
 	/**
 	 * @var String
 	 */
-	private $sql;
+	protected $className;
 
 	/**
 	 * @var String
 	 */
-	private $params;
+	protected $tableName;
+
+	/**
+	 * @var String
+	 */
+	protected $sql;
+
+	/**
+	 * @var String
+	 */
+	protected $params;
+
+    /**
+     * @var \model\Database
+     */
+    protected $db;
+
 
     private static function stripNamespaceFromClassName($obj){
         $tmp = explode("\\", get_class($obj));
@@ -31,48 +43,64 @@ abstract class Query {
 	 *
 	 */
 	public function __construct() {
+        $this->className = get_class($this);
+        $tmp = Query::stripNamespaceFromClassName($this);
+        $this->tableName = substr($tmp,0,strlen($tmp)-3);
+        $this->db =  \model\Database::getInstance();
 	}
 
 	/**
 	 * @param int $id
 	 */
 	public function findById(int $id){
-		// TODO: implement here
+		$this->db->prepare("SELECT * FROM $this->tableName WHERE id=?");
+        $this->db->execute(array($id));
+        return $this->db->fetch($this->className);
 	}
 
 	/**
 	 * @param String condition
 	 */
-	public function prepareFindWith(String $condition){
-		// TODO: implement here
+	public function prepareFindWith($condition,$params){
+        $this->sql = "SELECT * FROM $this->tableName WHERE $condition";
+        $this->params = $params;
+        return $this;
 	}
 
 	/**
 	 * 
 	 */
 	public function prepareFindAll(){
-		// TODO: implement here
+		$this->sql = "SELECT * FROM $this->tableName";
+        $this->params = array();
+        return $this;
 	}
 
 	/**
 	 * 
 	 */
-	public function limit(){
-		// TODO: implement here
+	public function limit($deb, $nb){
+        $this->sql.=" limit $deb,$nb";
+        return $this;
+
 	}
 
 	/**
 	 * 
 	 */
-	public function orderBy(){
-		// TODO: implement here
+	public function orderBy($order){
+        $this->sql.= " ORDER BY $order";
+        return $this;
+
 	}
 
 	/**
 	 * 
 	 */
 	public function execute(){
-		// TODO: implement here
+		$this->db->prepare($this->sql);
+        $this->db->execute($this->params);
+        return $this->db->fetchAll($this->className);
 	}
 
 }

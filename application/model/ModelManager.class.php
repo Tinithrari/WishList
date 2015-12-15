@@ -16,7 +16,7 @@ class ModelManager {
 	private static $instance;
 
     private static function stripNamespaceFromClassName($obj){
-        $tmp = explode("\\", get_class($obj));
+        $tmp = explode("\\",$obj);
         return end($tmp);
     }
 
