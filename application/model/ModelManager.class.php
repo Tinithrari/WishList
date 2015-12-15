@@ -11,23 +11,27 @@ include_once("Model.class.php");
 class ModelManager {
 
 	/**
-	 *
-	 *
-	 *
-	 */
-	private function __construct() {
-	}
-
-	/**
 	 * @var \model\ModelManager
 	 */
 	private static $instance;
 
+    private static function stripNamespaceFromClassName($obj){
+        $tmp = explode("\\", get_class($obj));
+        return end($tmp);
+    }
+
+    /**
+     *
+     *
+     *
+     */
+    private function __construct() {
+    }
 
 	/**
 	 * @param \model\Model $m
 	 */
-	public function save($m){
+	public function save(&$m){
 		if ($m == null)
             return;
 
@@ -37,14 +41,15 @@ class ModelManager {
             $this->update($m);
 	}
 
+
 	/**
 	 * @param \model\Model $m
 	 */
-	public function delete($m){
+	public function delete(&$m){
 		if ($m == null || !$m instanceof \model\Model)
 			return;
 
-		$tablename = get_class($m);
+		$tablename = stripNamespaceFromClassName(get_class($m));
 		$sql = "DELETE FROM ".$tablename." WHERE id=".$m->id;
 		$db = Database::getInstance();
 		$db->prepare($sql);
@@ -54,14 +59,14 @@ class ModelManager {
 	/**
 	 * @param \model\Model $m
 	 */
-	private function insert($m){
+	private function insert(&$m){
 		if ($m==null || !$m instanceof \model\Model)
 			return;
-
-		$tablename=get_class($m);
+        $classe = get_class($m);
+		$tablename = stripNamespaceFromClassName($classe);
 		$sql = "INSERT INTO ".$tablename." values(NULL";
 
-		$var=get_class_vars($tablename);
+		$var=get_class_vars($classe);
 		for($i = 0; $i < count($var); $i++)
 			$sql.=",?";
 		$sql.=")";
@@ -81,14 +86,14 @@ class ModelManager {
 	/**
 	 * @param \model\Model $m
 	 */
-	private function update($m){
+	private function update(&$m){
 		if ($m==null || !$m instanceof \model\Model)
 			return;
-
-		$tablename=get_class($m);
+        $classe = get_class($m);
+		$tablename = stripNamespaceFromClassName($classe);
 		$sql = "UPDATE ".$tablename." SET ";
 
-		$var=get_class_vars($tablename);
+		$var=get_class_vars($classe);
 		$first = true;
 		for($i = 0; $i < count($var); $i++){
 			if (!$first)

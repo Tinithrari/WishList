@@ -1,17 +1,12 @@
 <?php
 
 namespace model;
-
+include_once("Database.class.php");
+include_once("Model.class.php")
 /**
  * 
  */
 abstract class Query {
-
-	/**
-	 * 
-	 */
-	public function __construct() {
-	}
 
 	/**
 	 * @var String
@@ -28,6 +23,15 @@ abstract class Query {
 	 */
 	private $params;
 
+    private static function stripNamespaceFromClassName($obj){
+        $tmp = explode("\\", get_class($obj));
+        return end($tmp);
+    }
+	/**
+	 *
+	 */
+	public function __construct() {
+	}
 
 	/**
 	 * @param int $id
