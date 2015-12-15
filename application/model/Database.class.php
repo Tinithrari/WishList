@@ -49,23 +49,21 @@ class Database {
 	}
 
 	/**
-	 * 
+	 * @param String $sql
 	 */
 	public function prepare($sql){
 		$this->stmt = $this->pdo->prepare($sql);
 	}
 
 	/**
-	 * 
+	 * @param Array $params
 	 */
 	public function execute($params)
     {
 		if (! isset($this->stmt) && ! is_array($params))
-            return 0;
+            return;
 
         $this->stmt->execute($params);
-
-        return 1;
 	}
 
 	/**
