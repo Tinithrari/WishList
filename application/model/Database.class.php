@@ -57,7 +57,7 @@ class Database {
 	}
 
 	/**
-	 * @param Array $params
+	 * @param array $params
 	 */
 	public function execute($params)
     {

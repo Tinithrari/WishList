@@ -1,5 +1,12 @@
 <?php
 
+namespace controler;
+
+use model\ModelManager;
+
+include_once("../model/cadeau.class.php");
+include_once("../model/ModelManager.class.php");
+include_once("../model/cadeauSQL.class.php");
 
 /**
  * 
@@ -17,7 +24,11 @@ class CadeauControler {
 	 */
 	public function creerCadeau($c)
 	{
-		// TODO: implement here
+        if (! $c->isNew())
+            throw new \BadFunctionCallException("Le cadeau existe déjà, merci d'utiliser la fonction modifierCadeau");
+
+        $manager = ModelManager::getInstance();
+        $manager->save($c);
 	}
 
 	/**
@@ -25,7 +36,11 @@ class CadeauControler {
 	 */
 	public function modifierCadeau($c)
 	{
-		// TODO: implement here
+		if ($c->isNew())
+            throw new \BadFunctionCallException("Le cadeau n'existe pas, merci d'utiliser la fonction creerCadeau");
+
+        $manager = ModelManager::getInstance();
+        $manager->save($c);
 	}
 
 	/**
@@ -33,7 +48,11 @@ class CadeauControler {
 	 */
 	public function supprimerCadeau($c)
 	{
-		// TODO: implement here
+		if ($c->isNew())
+            throw new \BadFunctionCallException("Impossible de supprimer un cadeau qui n'existe pas");
+
+        $manager = ModelManager::getInstance();
+        $manager->delete($c);
 	}
 
 }

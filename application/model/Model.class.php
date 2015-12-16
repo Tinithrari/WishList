@@ -11,6 +11,7 @@ abstract class Model {
 	 * 
 	 */
 	public function __construct() {
+		$this->id = null;
 	}
 
 	/**
@@ -29,21 +30,7 @@ abstract class Model {
 	 * 
 	 */
 	public function isNew(){
-		// TODO: implement here
-	}
-
-	/**
-	 * 
-	 */
-	public function getId(){
-		// TODO: implement here
-	}
-
-	/**
-	 * @param int $id
-	 */
-	public function setId(int $id){
-		// TODO: implement here
+		return $this->id === null;
 	}
 
 }
