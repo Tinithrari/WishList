@@ -19,7 +19,6 @@ class Database {
 	private $pdo;
     private $stmt;
 
-
     private function __construct()
     {
 
@@ -27,6 +26,8 @@ class Database {
         {
             $this->pdo = new \PDO(DSN . DB_NAME, DB_USER, DB_PASSWORD);
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->stmt = new \PDOStatement();
+
         }
         catch (\PDOException $e)
         {
@@ -69,22 +70,26 @@ class Database {
 	/**
 	 * 
 	 */
-	public function fetch(){
-		// TODO: implement here
+	public function fetch($classname = false){
+        if (! $classname)
+		    return $this->stmt->fetch(\PDO::FETCH_ASSOC);
+        return $this->stmt->fetch(\PDO::FETCH_CLASS, $classname);
 	}
 
 	/**
 	 * 
 	 */
-	public function fetchAll(){
-		// TODO: implement here
+	public function fetchAll($classname = false){
+        if (! $classname)
+            return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->stmt->fetchAll(\PDO::FETCH_CLASS, $classname);
 	}
 
 	/**
 	 * 
 	 */
 	public function lastInsertId(){
-		// TODO: implement here
+		return $this->pdo->lastInsertId();
 	}
 
 }
