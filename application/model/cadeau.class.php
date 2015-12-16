@@ -26,11 +26,11 @@ class cadeau extends Model {
 	/**
 	 * @var int
 	 */
-	public $utilisateur_id;
+	public $liste_id;
 
 	/**
 	 * @var int
 	 */
-	public $evenement_id;
+	public $utilisateur_id;
 
 }

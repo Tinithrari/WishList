@@ -2,6 +2,14 @@
 
 namespace controler;
 
+use model\liste;
+use model\listeSQL;
+use model\ModelManager;
+
+include_once ("../model/ModelManager.class.php");
+include_once ("../model/liste.class.php");
+include_once ("../model/listeSQL.class.php");
+
 /**
  * 
  */
@@ -16,49 +24,74 @@ class ListControler {
 	/**
 	 * @param \model\liste $l
 	 */
-	public function creerListe($l)
+	public function creerListe(&$l)
 	{
-		// TODO: implement here
+		if ($l == null || ! $l instanceof liste || ! $l->isNew())
+            return;
+
+        $modelManager = ModelManager::getInstance();
+
+        $modelManager->save($l);
 	}
 
 	/**
 	 * @param int $user_id
+     * @return mixed La liste des listes d'un utilisateur
 	 */
 	public function trouverListes($user_id)
 	{
-		// TODO: implement here
+		if ($user_id == null || ! is_int($user_id) || $user_id < 1)
+            return null;
+
+        $listReader = new listeSQL();
+
+        return $listReader->prepareFindWith("utilisateur_id = ?", array($user_id))->execute();
 	}
 
 	/**
 	 * @param int $id
+     * @return mixed Une liste ou null
 	 */
 	public function getListeById($id){
-		// TODO: implement here
+
+        if ($id == null ||! is_int($id) || $id < 1)
+            return null;
+
+        $listReader = new ListeSQL();
+
+        return $listReader->findById($id);
 	}
 
 	/**
 	 * @param \model\liste $l
+     * @return mixed The modified list or null
 	 */
 	public function modifierListe($l)
 	{
-		// TODO: implement here
+		if ($l == null ||! $l instanceof  liste || $l->isNew())
+            return null;
+
+        $modelManager = ModelManager::getInstance();
+
+        $modelManager->save($l);
+
+        return $l;
 	}
 
 	/**
 	 * @param \model\liste $l
+     * @return boolean l'état de l'opération
 	 */
 	public function supprimerListe($l)
 	{
-		// TODO: implement here
-	}
+        if ($l == null ||! $l instanceof  liste || $l->isNew())
+            return false;
 
-	/**
-	 * @param \model\liste $l 
-	 * @param \model\cadeau $c
-	 */
-	public function ajouterCadeau($l, $c)
-	{
-		// TODO: implement here
+        $modelManager = ModelManager::getInstance();
+
+        $modelManager->delete($l);
+
+        return true;
 	}
 
 }
