@@ -2,6 +2,17 @@
 
 namespace controler;
 
+use model\Database;
+use model\groupe;
+use model\groupeSQL;
+use model\ModelManager;
+use model\utilisateurSQL;
+
+include_once ("../model/Database.class.php");
+include_once ("../model/groupe.class.php");
+include_once ("../model/groupeSQL.class.php");
+include_once ("../model/utilisateurSQL.class.php");
+
 /**
  * 
  */
@@ -18,7 +29,12 @@ class GroupeControler {
 	 */
 	public function getListGroupesByUserId($id)
 	{
-		// TODO: implement here
+        if ($id == null || is_int($id) || $id  < 1)
+            return null;
+
+		$groupReader = new groupeSQL();
+
+        return $groupReader->prepareFindWith("utilisateur_id = ?", array($id))->execute();
 	}
 
 	/**
@@ -26,30 +42,38 @@ class GroupeControler {
 	 */
 	public function getGroupeById($id)
 	{
-		// TODO: implement here
+        if ($id == null || is_int($id) || $id  < 1)
+            return null;
+
+		$groupReader = new groupeSQL();
+
+        return $groupReader->findById($id);
 	}
 
 	/**
 	 * @param \model\groupe $g
 	 */
-	public function creerGroupe($g){
-		// TODO: implement here
-	}
-
-	/**
-	 * @param \model\groupe $g
-	 */
-	public function supprimerGroupe($g)
+	public function supprimerGroupe(&$g)
 	{
-		// TODO: implement here
+        if ($g == null || ! $g instanceof groupe || $g->isNew())
+            throw new \BadFunctionCallException("Impossible de supprimer un élément non-existant");
+
+        $manager = ModelManager::getInstance();
+
+        $manager->delete($g);
 	}
 
 	/**
 	 * @param \model\groupe $g
 	 */
-	public function modifierGroupe($g)
+	public function saveGroupe($g)
 	{
-		// TODO: implement here
+        if ($g == null || ! $g instanceof groupe)
+            throw new \InvalidArgumentException("L'argument pour saveGroupe ne peut être null et doit être de type groupe");
+
+        $manager = ModelManager::getInstance();
+
+        $manager->save($g);
 	}
 
 	/**
@@ -58,7 +82,13 @@ class GroupeControler {
 	 */
 	public function ajoutUserToGroupe($u, $g)
 	{
-		// TODO: implement here
+		if ($u == null || $g == null)
+            throw new \InvalidArgumentException("L'un des arguments en entrées de ajoutUserToGroupe est invalide");
+
+        $db = Database::getInstance();
+
+        $db->prepare("INSERT INTO membre VALUES (?,?)");
+        $db->execute(array($g>id, $u->id));
 	}
 
 	/**
@@ -67,7 +97,13 @@ class GroupeControler {
 	 */
 	public function supprimerUserOfGroupe($u, $g)
 	{
-		// TODO: implement here
+        if ($u == null || $g == null)
+            throw new \InvalidArgumentException("L'un des arguments en entrées de supprimerUserToGroupe est invalide");
+
+        $db = Database::getInstance();
+
+        $db->prepare("DELETE FROM membre WHERE groupe_id = ? AND utilisateur_id = ?");
+        $db->execute(array($g->id, $u->id));
 	}
 
 	/**
@@ -75,7 +111,22 @@ class GroupeControler {
 	 */
 	public function getMembreOfGroupe($id)
 	{
-		// TODO: implement here
-	}
+        if ($id == null || ! is_int($id) || $id < 1)
+            throw new \InvalidArgumentException("L'un des arguments en entrées de ajoutUserToGroupe est invalide");
 
+        $db = Database::getInstance();
+
+        $db->prepare("SELECT utilisateur_id FROM membre WHERE groupe_id = ?");
+        $db->execute(array($id));
+
+        $liste = $db->fetchAll();
+
+        $user_list = array();
+        $user_reader = new utilisateurSQL();
+
+        foreach ($liste as $elt)
+            $user_list[] = $user_reader->findById($elt["utilisateur_id"]);
+
+        return $user_list;
+	}
 }
