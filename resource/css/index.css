@@ -1,0 +1,47 @@
+html, body
+{
+    height: 100%;
+}
+header
+{
+    height: 10%;
+}
+
+#logo
+{
+    max-width: 20%;
+}
+
+header>.form-inline
+{
+    float: right;
+    margin-right: 5%;
+    margin-top: 1.5%;
+}
+
+.subscribe
+{
+    background-image: url("../img/Mosaic.png");
+    width: 100%;
+    height: 90%;
+    display: block;
+    overflow: hidden;
+}
+
+.subscribe>h2
+{
+    font-weight: bold;
+}
+
+.signup
+{
+    margin-top: 5%;
+    float: right;
+    color: #FFFFFF;
+    margin-right: 10%;
+}
+
+.signup>.form-inline
+{
+    padding-right: 2%;
+}
