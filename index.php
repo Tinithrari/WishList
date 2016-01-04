@@ -1,3 +1,6 @@
+<?php
+    //TODO Vérifier l'existance d'une session ou d'un cookie
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>

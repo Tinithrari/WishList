@@ -1,0 +1,42 @@
+#logo
+{
+    max-width: 20%;
+}
+
+header
+{
+    background-color: #2ecc71;
+    width: 100%;
+    overflow: hidden;
+}
+
+header>.form-inline
+{
+
+    position: absolute;
+    left: 40%;
+    top: 0;
+    margin-top: 1%;
+}
+
+.nav-button-bar
+{
+    float: right;
+    position: absolute;
+    list-style: none;
+    right: 0%;
+    top: 0;
+    margin-top: 0.5%;
+}
+
+.nav-button-bar>li
+{
+    display: inline;
+    margin-left: 16%;
+}
+
+.nav-button
+{
+    position: inherit;
+    width: 15%;
+}
