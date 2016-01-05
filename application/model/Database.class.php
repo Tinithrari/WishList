@@ -68,12 +68,15 @@ class Database {
 	}
 
 	/**
-	 * 
+	 * @return mixed
 	 */
 	public function fetch($classname = false){
         if (! $classname)
-		    return $this->stmt->fetch(\PDO::FETCH_ASSOC);
-        return $this->stmt->fetch(\PDO::FETCH_CLASS, $classname);
+		    $this->stmt->setFetchMode(\PDO::FETCH_ASSOC);
+        else
+			$this->stmt->setFetchMode(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, $classname);
+
+		return $this->stmt->fetch();
 	}
 
 	/**

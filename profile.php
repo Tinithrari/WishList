@@ -1,5 +1,12 @@
 <?php
+
+    session_start();
+
+    include_once ("application/config.php");
     include("header.php");
+    include_once CONTROLER_PATH . "UtilisateurControler.class.php";
+    include_once CONTROLER_PATH . "ListControler.class.php";
+
 ?>
     <div class="suggest">
         <h3>Amis aléatoire :</h3>
@@ -16,10 +23,35 @@
 
     <div class="profil">
         <div class="profil-header">
-            <img src="resource/img/DefaultAvatar.png" class="profil-img img-circle">
+
+            <?php
+                if (! isset($_GET["id"])) {
+                    $_GET["id"] = $_SESSION["id"];
+                }
+                $ctrl = new \controler\UtilisateurControler();
+
+                $usr = $ctrl->trouverUtilisateurParId($_GET["id"]);
+
+                if ($usr == null)
+                {
+                    echo "<p> L'utilisateur demandé n'existe pas</p>";
+                    exit(1);
+                }
+
+                echo '<img src="' . ($usr->chemin_photo == "NULL" ? "resource/img/DefaultAvatar.png" : $usr->chemin_photo) . '" class="profil-img img-circle">';
+            ?>
             <div class="info">
-            <h2>Prénom Nom (pseudo)</h2>
-            <h4><a> n listes </a><a> n followers </a></h4>
+                <?php
+                    echo "<h2>$usr->prenom $usr->nom ($usr->pseudo)</h2>";
+
+                    $listCtrl = new \controler\ListControler();
+
+                    $liste = $listCtrl->trouverListes($usr->id);
+
+                    $followers = $ctrl->trouverFollowers($usr->id);
+
+                    echo "<h4><a>" . count($liste) . " listes </a> | <a>" . count($followers) . " followers </a></h4>";
+                ?>
             </div>
         </div>
 

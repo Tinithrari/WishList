@@ -6,9 +6,9 @@ use model\liste;
 use model\listeSQL;
 use model\ModelManager;
 
-include_once ("../model/ModelManager.class.php");
-include_once ("../model/liste.class.php");
-include_once ("../model/listeSQL.class.php");
+include_once MODEL_PATH . "ModelManager.class.php";
+include_once MODEL_PATH . "Liste.class.php";
+include_once MODEL_PATH . "listeSQL.class.php";
 
 /**
  * 
@@ -36,7 +36,7 @@ class ListControler {
 
 	/**
 	 * @param int $user_id
-     * @return mixed La liste des listes d'un utilisateur
+     * @return array La liste des listes d'un utilisateur
 	 */
 	public function trouverListes($user_id)
 	{

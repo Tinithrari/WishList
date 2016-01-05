@@ -51,10 +51,12 @@ abstract class Query {
 
 	/**
 	 * @param int $id
+	 * @return utilisateur
 	 */
-	public function findById(int $id){
+	public function findById($id){
 		$this->db->prepare("SELECT * FROM $this->tableName WHERE id=?");
         $this->db->execute(array($id));
+
         return $this->db->fetch($this->className);
 	}
 
