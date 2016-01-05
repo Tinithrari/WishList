@@ -1,5 +1,5 @@
 <?php
-    define("BASE_PATH", $_SERVER["DOCUMENT_ROOT"]);
+    define("BASE_PATH", $_SERVER["DOCUMENT_ROOT"] . "/");
 
     define("MODEL_PATH", BASE_PATH . "application/model/");
     define("CONTROLER_PATH", BASE_PATH . "application/controler/");
