@@ -30,4 +30,11 @@ class TypeCadeauControler
 
         return $reader->findById($id);
     }
+
+    public function getAllType()
+    {
+        $typeReader = new type_cadeauSQL();
+
+        return $typeReader->prepareFindAll()->execute();
+    }
 }
