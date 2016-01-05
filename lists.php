@@ -1,4 +1,8 @@
 <?php
+    session_start();
+    include_once("application/config.php");
+    include_once("application/controler/ListControler.class.php");
+    include_once("application/controler/EvenementControler.class.php");
     include_once("header.html");
 ?>
 <div class="suggest">
@@ -14,17 +18,36 @@
     </div>
 </div>
 <div class="list-container">
-    <h3>Liste de vos évènement :</h3>
-    <div class="list-thumb">
-        <h4> Nom de la liste - Type évènement : Date</h4>
-        <p>Commentaire sur l'évènement</p>
-    </div>
-    <div class="list-thumb">
-        <h4> Nom de la liste - Type évènement : Date</h4>
-        <p>Commentaire sur l'évènement</p>
-    </div>
-    <div class="list-thumb">
-        <h4> Nom de la liste - Type évènement : Date</h4>
-        <p>Commentaire sur l'évènement</p>
-    </div>
+    <h3>Vos listes de souhaits :</h3>
+    <?php
+        if (! isset($_GET["user_id"]))
+            $_GET["user_id"] = $_SESSION["id"];
+        $usr_id = $_GET["user_id"];
+
+        $listCtrl = new \controler\ListControler();
+
+        $liste = $listCtrl->trouverListes($usr_id);
+
+        if (! count($liste))
+            echo "<p> Aucune liste à afficher </p>";
+        else
+        {
+            $evtCtrl = new \controler\EvenementControler();
+
+            foreach ($liste as $l)
+            {
+                $evt = $evtCtrl->getEventById($l->evenement_id);
+
+                $evt->nom = utf8_encode($evt->nom);
+
+                echo "
+                <div class='list-thumb'>
+                <h4>$l->nom - $evt->nom</h4>
+                <p> $l->dateEvenement</p>"
+                . ($l->commentaire == "NULL" ? "" : ("<p>" . $l->commentaire . "</p>")) ."
+                </div>
+                ";
+            }
+        }
+    ?>
 </div>

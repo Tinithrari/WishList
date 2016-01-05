@@ -2,7 +2,7 @@
 
 namespace model;
 
-include_once MODEL_PATH . "Query.class.php";
+include_once "Query.class.php";
 
 /**
  * 

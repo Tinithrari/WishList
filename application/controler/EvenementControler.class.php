@@ -5,8 +5,8 @@ namespace controler;
 use model\evenement;
 use model\evenementSQL;
 
-include_once MODEL_PATH . "evenement.class.php";
-include_once MODEL_PATH . "evenementSQL.class.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/starwish/application/model/evenement.class.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/starwish/application/model/evenementSQL.class.php";
 
 /**
  * 
