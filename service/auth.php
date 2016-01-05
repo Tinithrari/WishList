@@ -1,7 +1,8 @@
 <?php
     session_start();
 
-    include_once (CONTROLER_PATH . "UtilisateurControler.class.php");
+    include_once "../application/config.php";
+    include_once CONTROLER_PATH . "UtilisateurControler.class.php";
 
     if (! isset($_POST["username"]) || ! isset($_POST["password"]))
     {
@@ -13,14 +14,14 @@
 
     $usr = $controler->trouverUtilisateurParPseudo($_POST["username"]);
 
-    if ($usr != null && $usr->mdp == $_POST["password"])
+    if ($usr != null && $usr->mdp == sha1($_POST["password"]))
     {
         $_SESSION["id"] = $usr->id;
         $_SESSION["username"] = $usr->pseudo;
         $_SESSION["password"] = $usr->mdp;
 
-        header("../profile.php?id=$usr->id");
+        header("location: ../profile.php?id=$usr->id");
     }
     else
-        header("../index.php?auth=fail");
+        header("location: ../index.php?auth=fail");
 ?>
