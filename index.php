@@ -6,8 +6,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="resource/css/index.css">
     <link rel="stylesheet" href="resource/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="resource/css/index.css">
 </head>
 <body>
     <header>
