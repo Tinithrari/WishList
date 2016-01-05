@@ -3,7 +3,7 @@
     session_start();
 
     include_once ("application/config.php");
-    include("header.php");
+    include("header.html");
     include_once CONTROLER_PATH . "UtilisateurControler.class.php";
     include_once CONTROLER_PATH . "ListControler.class.php";
 

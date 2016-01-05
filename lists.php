@@ -1,5 +1,5 @@
 <?php
-    include_once ("header.php");
+    include_once("header.html");
 ?>
 <div class="suggest">
     <h3>Amis aléatoire :</h3>

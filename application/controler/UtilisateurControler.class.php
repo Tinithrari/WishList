@@ -2,15 +2,15 @@
 
 namespace controler;
 
+include_once($_SERVER["DOCUMENT_ROOT"] . "/starwish/application/model/ModelManager.class.php");
+include_once($_SERVER["DOCUMENT_ROOT"] . "/starwish/application/model/utilisateur.class.php");
+include_once($_SERVER["DOCUMENT_ROOT"] . "/starwish/application/model/UtilisateurSQL.class.php");
+include_once($_SERVER["DOCUMENT_ROOT"] . "/starwish/application/model/Database.class.php");
+
 use model\Database;
 use model\ModelManager;
 use model\utilisateur;
 use model\utilisateurSQL;
-
-include_once (MODEL_PATH . "ModelManager.class.php");
-include_once (MODEL_PATH . "utilisateur.class.php");
-include_once (MODEL_PATH . "UtilisateurSQL.class.php");
-include_once (MODEL_PATH . "Database.class.php");
 
 /**
  * 

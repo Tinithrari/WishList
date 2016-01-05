@@ -1,8 +1,8 @@
 <?php
     session_start();
 
-    include_once "../application/config.php";
-    include_once CONTROLER_PATH . "UtilisateurControler.class.php";
+    include_once ("../application/config.php");
+    include_once ("../application/controler/UtilisateurControler.class.php");
 
     if (! isset($_POST["username"]) || ! isset($_POST["password"]))
     {

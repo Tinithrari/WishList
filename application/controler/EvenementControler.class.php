@@ -2,10 +2,11 @@
 
 namespace controler;
 
-use model\listeSQL;
+use model\evenement;
+use model\evenementSQL;
 
-include_once ("../model/evenement.class.php");
-include_once ("../model/evenementSQL.class.php");
+include_once MODEL_PATH . "evenement.class.php";
+include_once MODEL_PATH . "evenementSQL.class.php";
 
 /**
  * 
@@ -27,9 +28,16 @@ class EvenementControler {
 	{
         if ($id == null || ! is_int($id) || $id  < 1)
 
-        $eventReader = new listeSQL();
+        $eventReader = new evenementSQL();
 
         return $eventReader->findById($id);
+	}
+
+	public function getAllEvent()
+	{
+		$eventReader = new evenementSQL();
+
+		return $eventReader->prepareFindAll()->execute();
 	}
 
 }

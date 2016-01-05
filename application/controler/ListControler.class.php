@@ -6,9 +6,9 @@ use model\liste;
 use model\listeSQL;
 use model\ModelManager;
 
-include_once MODEL_PATH . "ModelManager.class.php";
-include_once MODEL_PATH . "Liste.class.php";
-include_once MODEL_PATH . "listeSQL.class.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/starwish/application/model/ModelManager.class.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/starwish/application/model/Liste.class.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/starwish/application/model/listeSQL.class.php";
 
 /**
  * 
@@ -40,12 +40,13 @@ class ListControler {
 	 */
 	public function trouverListes($user_id)
 	{
-		if ($user_id == null || ! is_int($user_id) || $user_id < 1)
+		if ($user_id == null)
             return null;
 
         $listReader = new listeSQL();
 
-        return $listReader->prepareFindWith("utilisateur_id = ?", array($user_id))->execute();
+
+		return $listReader->prepareFindWith("utilisateur_id = ?", array($user_id))->execute();
 	}
 
 	/**

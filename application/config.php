@@ -6,6 +6,7 @@
     define("VIEW_PATH", BASE_PATH . "application/view/");
 
     define("CSS_PATH", $_SERVER['DOCUMENT_ROOT']."starwish/resource/css/");
+    define("BS_CSS_PATH", $_SERVER['DOCUMENT_ROOT']."starwish/resource/bootstrap/css/");
     define("JS_PATH", $_SERVER['DOCUMENT_ROOT']."starwish/resource/js/");
     define("IMAGE_PATH", $_SERVER['DOCUMENT_ROOT']."starwish/resource/img");
 

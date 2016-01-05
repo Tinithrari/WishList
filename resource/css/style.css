@@ -9,6 +9,11 @@ html, body
     height: 100%;
 }
 
+body>p
+{
+    color: white;
+}
+
 #logo
 {
     max-width: 20%;
@@ -128,4 +133,19 @@ header>.form-inline
     height: 60px;
     float: left;
     margin-right: 3%;
+}
+
+.form-container
+{
+    margin-top: 20px;
+    background-color: #d4dbdf;
+    width: 50%;
+    margin-left: 20%;
+    padding: 2%;
+    border-radius: 12px;
+}
+
+.form-container>*
+{
+    margin-bottom: 5px;
 }
