@@ -13,7 +13,7 @@
 
     $usr = $controler->trouverUtilisateurParPseudo($_POST["username"]);
 
-    if ($usr != null && $usr->mdp == $_POST["password"])
+    if ($usr != null && sha1($usr->mdp) == $_POST["password"])
     {
         $_SESSION["id"] = $usr->id;
         $_SESSION["username"] = $usr->pseudo;
