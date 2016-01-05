@@ -13,7 +13,7 @@
     <header>
         <a href="#"><img alt="Logo de starwish" src="resource/img/Logo.png" id="logo"></a>
 
-        <form name="login" method="post" class="form-inline">
+        <form name="login" method="post" class="form-inline" action="service/auth.php">
             <div class="form-group">
                 <input type="text" name="username" class="form-control" placeholder="Nom d'utilisateur" required>
                 <input type="password" name="password" class="form-control" placeholder="Mot de passe" required>
