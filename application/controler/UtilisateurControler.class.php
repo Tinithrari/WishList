@@ -7,9 +7,10 @@ use model\ModelManager;
 use model\utilisateur;
 use model\utilisateurSQL;
 
-include_once ("../model/utilisateur.class.php");
-include_once ("../model/utilisateurSQL.class.php");
-include_once ("../model/Database.class.php");
+include_once (MODEL_PATH . "ModelManager.class.php");
+include_once (MODEL_PATH . "utilisateur.class.php");
+include_once (MODEL_PATH . "UtilisateurSQL.class.php");
+include_once (MODEL_PATH . "Database.class.php");
 
 /**
  * 

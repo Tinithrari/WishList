@@ -49,7 +49,7 @@ class ModelManager {
 		if ($m == null || !$m instanceof \model\Model)
 			return;
 
-		$tablename = stripNamespaceFromClassName(get_class($m));
+		$tablename = ModelManager::stripNamespaceFromClassName(get_class($m));
 		$sql = "DELETE FROM ".$tablename." WHERE id=".$m->id;
 		$db = Database::getInstance();
 		$db->prepare($sql);
@@ -63,17 +63,19 @@ class ModelManager {
 		if ($m==null || !$m instanceof \model\Model)
 			return;
         $classe = get_class($m);
-		$tablename = stripNamespaceFromClassName($classe);
+		$tablename = ModelManager::stripNamespaceFromClassName($classe);
 		$sql = "INSERT INTO ".$tablename." values(NULL";
 
 		$var=get_class_vars($classe);
-		for($i = 0; $i < count($var); $i++)
+
+		for($i = 0; $i < count($var) - 1; $i++)
 			$sql.=",?";
 		$sql.=")";
 
 		$values=array();
 		foreach($var as $k => $v)
-			$values[] = $m->$k;
+			if ($k != "id")
+				$values[] = $m->$k;
 
 		$db = Database::getInstance();
 		$db->prepare($sql);
@@ -90,7 +92,7 @@ class ModelManager {
 		if ($m==null || !$m instanceof \model\Model)
 			return;
         $classe = get_class($m);
-		$tablename = stripNamespaceFromClassName($classe);
+		$tablename = ModelManager::stripNamespaceFromClassName($classe);
 		$sql = "UPDATE ".$tablename." SET ";
 
 		$var=get_class_vars($classe);

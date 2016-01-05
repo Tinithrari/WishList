@@ -24,8 +24,8 @@ class Database {
 
         try
         {
-            $this->pdo = new \PDO(DSN . DB_NAME, DB_USER, DB_PASSWORD);
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->pdo = new \PDO(DSN, DB_USER, DB_PASSWORD);
+            $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
             $this->stmt = new \PDOStatement();
 
         }

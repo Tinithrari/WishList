@@ -1,15 +1,17 @@
 <?php
-    define("MODEL_PATH", "application/model/");
-    define("CONTROLER_PATH", "application/controler/");
-    define("VIEW_PATH", "application/view/");
+    define("BASE_PATH", $_SERVER["DOCUMENT_ROOT"] . "/starwish/");
 
-    define("CSS_PATH", "resource/css/");
-    define("JS_PATH", "resource/js/");
-    define("IMAGE_PATH", "resource/img");
+    define("MODEL_PATH", BASE_PATH . "application/model/");
+    define("CONTROLER_PATH", BASE_PATH . "application/controler/");
+    define("VIEW_PATH", BASE_PATH . "application/view/");
 
-    define("DSN", "mysql:dbname=");
-    define("DB_NAME", "");
-    define("DB_USER", "");
-    define("DB_PASSWORD", "");
+    define("CSS_PATH", $_SERVER['DOCUMENT_ROOT']."starwish/resource/css/");
+    define("JS_PATH", $_SERVER['DOCUMENT_ROOT']."starwish/resource/js/");
+    define("IMAGE_PATH", $_SERVER['DOCUMENT_ROOT']."starwish/resource/img");
+
+    define("DSN", "mysql:host=localhost;dbname=starwish");
+    define("DB_NAME", "starwish");
+    define("DB_USER", "netuser");
+    define("DB_PASSWORD", "secure");
 
 ?>

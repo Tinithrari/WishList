@@ -5,7 +5,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Starwish</title>
     <link rel="stylesheet" href="resource/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="resource/css/style.css">
 </head>
