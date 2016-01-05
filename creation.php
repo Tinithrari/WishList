@@ -20,7 +20,7 @@
     if ($_GET["type"] == "cadeau")
     {
 echo "
-            <form action='createList.php' method='get' class='form-container'>
+            <form action='createCadeau.php' method='get' class='form-container'>
                 <label for='nom'>Nom</label><input type='text' name='nom' id='nom' class='form-control' required>
                 <label for='description'>Description du cadeau (250 caractère maximum, facultatif)</label>
                 <label for='lien'>Lien (facultatif)</label><input type='text' name='lien' id='lien' class='form-control'>
