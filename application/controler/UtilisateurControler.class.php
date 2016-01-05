@@ -25,7 +25,7 @@ class UtilisateurControler {
 
 	/**
 	 * @param int $id
-     * @return L'utilisateur associé à l'id
+     * @return utilisateur L'utilisateur associé à l'id
 	 */
 	public function trouverUtilisateurParId($id)
 	{
@@ -33,6 +33,17 @@ class UtilisateurControler {
 
         return $userReader->findById($id);
 	}
+
+    /**
+     * @param $pseudo
+     * @return utilisateur
+     */
+    public function trouverUtilisateurParPseudo($pseudo)
+    {
+        $userReader = new utilisateurSQL();
+
+        return $userReader->prepareFindWith("pseudo = ?", array($pseudo))->execute()[0];
+    }
 
 	/**
 	 * @param int $id
