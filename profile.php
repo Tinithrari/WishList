@@ -4,6 +4,8 @@
 
     include_once ("application/config.php");
     include("header.html");
+
+    include_once CONTROLER_PATH . "EvenementControler.class.php";
     include_once CONTROLER_PATH . "UtilisateurControler.class.php";
     include_once CONTROLER_PATH . "ListControler.class.php";
 
@@ -55,17 +57,32 @@
             </div>
         </div>
 
-        <div class="event">
-            <img src="resource/img/DefaultAvatar.png" class="event-img">
-            <h4>Ajout de cadeau</h4>
-            <p>Prénom nom a ajouté le cadeau dans la liste : <a>Lorem ipsum</a></p>
-        </div>
+        <?php
+        $usr_id = $_SESSION["id"];
 
-        <div class="event">
-            <img src="resource/img/DefaultAvatar.png" class="event-img">
-            <h4>Création de liste</h4>
-            <p>Prénom nom a créer une liste</p>
-        </div>
+        $listCtrl = new \controler\ListControler();
+
+        $liste = $listCtrl->trouverListes($usr_id);
+
+        if (!count($liste))
+            echo "<p> Aucune liste à afficher </p>";
+        else {
+            $evtCtrl = new \controler\EvenementControler();
+
+            foreach ($liste as $l) {
+                $evt = $evtCtrl->getEventById($l->evenement_id);
+                $evt->nom = utf8_encode($evt->nom);
+
+                echo "
+                <div class='list-thumb'>
+                <h4>$l->nom - $evt->nom</h4>
+                <p> $l->dateEvenement</p>"
+                    . ($l->commentaire == "NULL" ? "" : ("<p>" . $l->commentaire . "</p>")) . "
+                </div>
+                ";
+            }
+        }
+        ?>
     </div>
 </body>
 </html>

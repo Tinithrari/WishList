@@ -41,7 +41,7 @@ header>.form-inline
 {
     position: absolute;
     list-style: none;
-    right: 0;
+    right: 20px;
     height: inherit;
     top: 0;
     padding-top: 0.5%;
@@ -50,13 +50,14 @@ header>.form-inline
 
 .nav-button-bar>li
 {
-    margin-left: 10%;
+    margin-left: 40px;
     display: inline;
 }
 
 .nav-button
 {
-    max-width: 12%;
+    width: 60px;
+    height: 60px;
 }
 
 .nav-button:hover
@@ -93,6 +94,7 @@ header>.form-inline
 .event, .list-thumb
 {
     background-color: #bdc3c7;
+    padding-left: 25px;
     overflow: hidden;
     margin-bottom: 1%;
 }

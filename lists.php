@@ -18,35 +18,65 @@
     </div>
 </div>
 <div class="list-container">
-    <h3>Vos listes de souhaits :</h3>
     <?php
-        if (! isset($_GET["user_id"]))
-            $_GET["user_id"] = $_SESSION["id"];
-        $usr_id = $_GET["user_id"];
-
-        $listCtrl = new \controler\ListControler();
-
-        $liste = $listCtrl->trouverListes($usr_id);
-
-        if (! count($liste))
-            echo "<p> Aucune liste à afficher </p>";
-        else
+        if ($_GET["type"] == "liste")
         {
-            $evtCtrl = new \controler\EvenementControler();
+            echo "<h3>Vos listes de souhaits :</h3><a href='creation.php?type=liste'><p>Créer une liste</p></a>";
+            $usr_id = $_SESSION["id"];
 
-            foreach ($liste as $l)
-            {
-                $evt = $evtCtrl->getEventById($l->evenement_id);
+            $listCtrl = new \controler\ListControler();
 
-                $evt->nom = utf8_encode($evt->nom);
+            $liste = $listCtrl->trouverListes($usr_id);
 
-                echo "
-                <div class='list-thumb'>
-                <h4>$l->nom - $evt->nom</h4>
-                <p> $l->dateEvenement</p>"
-                . ($l->commentaire == "NULL" ? "" : ("<p>" . $l->commentaire . "</p>")) ."
-                </div>
-                ";
+            if (!count($liste))
+                echo "<p> Aucune liste à afficher </p>";
+            else {
+                $evtCtrl = new \controler\EvenementControler();
+
+                foreach ($liste as $l) {
+                    $evt = $evtCtrl->getEventById($l->evenement_id);
+                    $evt->nom = utf8_encode($evt->nom);
+
+                    echo "
+                    <div class='list-thumb'>
+                    <h4>$l->nom - $evt->nom</h4>
+                    <p> $l->dateEvenement</p>"
+                        . ($l->commentaire == "NULL" ? "" : ("<p>" . $l->commentaire . "</p>")) . "
+                    </div>
+                    ";
+                }
+            }
+        }
+        else if ($_GET["type"] == "cadeau")
+        {
+            $listCtrl = new \controler\ListControler();
+
+            $liste = $listCtrl->getListeById($_GET["liste_id"]);
+
+            echo "<h3>Liste de cadeaux pour la liste: $liste->nom :</h3><a href='creation.php?type=cadeau&liste_id=" . $liste->id . "'><p>Créer un cadeau</p></a>";
+            $usr_id = $_SESSION["id"];
+
+            $listCtrl = new \controler\ListControler();
+
+            $liste = $listCtrl->trouverListes($usr_id);
+
+            if (!count($liste))
+                echo "<p> Aucune liste à afficher </p>";
+            else {
+                $evtCtrl = new \controler\EvenementControler();
+
+                foreach ($liste as $l) {
+                    $evt = $evtCtrl->getEventById($l->evenement_id);
+                    $evt->nom = utf8_encode($evt->nom);
+
+                    echo "
+                    <div class='list-thumb'>
+                    <h4>$l->nom - $evt->nom</h4>
+                    <p> $l->dateEvenement</p>"
+                        . ($l->commentaire == "NULL" ? "" : ("<p>" . $l->commentaire . "</p>")) . "
+                    </div>
+                    ";
+                }
             }
         }
     ?>
