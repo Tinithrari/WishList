@@ -110,6 +110,23 @@ class UtilisateurControler {
         $db->execute(array($id_user, $id_following));
 	}
 
+    /**
+     * @param int $id_user
+     * @param int $id_following
+     */
+    public function supprimerFollowingById($id_user, $id_following)
+    {
+        $userReader = new utilisateurSQL();
+
+        if ($userReader->findById($id_user) == null && $userReader->findById($id_following) == null)
+            throw new \InvalidArgumentException("L'un des deux utilisateurs n'existe pas");
+
+        $db = Database::getInstance();
+
+        $db->prepare("DELETE FROM suivi WHERE utilisateur_id_1=? AND utilisateur_id_2=?");
+        $db->execute(array($id_user, $id_following));
+    }
+
 	/**
 	 * @param \model\utilisateur $user
 	 */

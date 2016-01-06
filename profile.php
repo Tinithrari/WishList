@@ -60,6 +60,18 @@ if (! isset ($_SESSION["id"]))
                     echo "<h4>" . count($liste) . " listes </h4>";
                 ?>
             </div>
+            <?php
+                if ($_SESSION["id"] != $_GET["id"])
+                {
+                    $follow = false;
+                    foreach ($followers as $f)
+                        if ($_SESSION["id"] == $f->id)
+                            $follow = true;
+
+                    echo ($follow ? "<a class='follow-button btn btn-lg btn-default' href='unfollow.php?target_id=". $_GET["id"] . "'>Ne plus suivre</a>"
+                        : "<a class='follow-button btn btn-lg btn-default' href='follow.php?target_id=". $_GET["id"] . "'>Suivre</a>");
+                }
+            ?>
         </div>
 
         <?php

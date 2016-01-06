@@ -104,6 +104,14 @@ header>.form-inline
     margin-bottom: 1%;
 }
 
+.follow-button
+{
+    clear: both;
+    display: block;
+    margin-right: 0;
+    margin-left: auto;
+}
+
 .event-img
 {
     float: left;
