@@ -7,35 +7,44 @@
  * Date: 05/01/16
  * Time: 16:28
  */
-    // include_once ("service/check_auth.php");
+if (! isset ($_SESSION["id"]))
+    header("location: index.php");
+
+    include_once "application/config.php";
 
     if (! isset($_GET["type"]))
         header("location: profile.php");
 
     include_once "application/config.php";
     include "header.html";
-    include_once CONTROLER_PATH . "EvenementControler.class.php";
-    include_once CONTROLER_PATH . "TypeCadeauControler.class.php";
+    include_once "application/controler/EvenementControler.class.php";
+    include_once "application/controler/TypeCadeauControler.class.php";
 
-    if ($_GET["type"] == "cadeau")
-    {
-echo "
+    if ($_GET["type"] == "cadeau") {
+        if (!isset($_GET["liste_id"])) {
+
+        }
+        echo "
             <form action='createCadeau.php' method='get' class='form-container'>
+                <input type='hidden' name='liste_id' value='" . $_GET["liste_id"] . "'
                 <label for='nom'>Nom</label><input type='text' name='nom' id='nom' class='form-control' required>
                 <label for='description'>Description du cadeau (250 caractère maximum, facultatif)</label>
-                <label for='lien'>Lien (facultatif)</label><input type='text' name='lien' id='lien' class='form-control'>
                 <textarea rows='3' name='description' id='description' cols='30' maxlength='250' class='form-control'></textarea>
-                <label for='typeCadeau'>Type d'évènement</label><select class='form-control' name='idEvenement' id='typeEvenement' required>
-                <option selected>Sélectionner un évènement</option>";
+                <label for='lien'>Lien (facultatif)</label><input type='text' name='lien' id='lien' class='form-control'>
+                <label for='typeCadeau'>Type de cadeau</label><select class='form-control' name='typeCadeau' id='typeCadeau' required>
+                <option selected>Sélectionner un cadeau</option>";
 
-$ctrl = new \controler\type_cadeauControler();
+        $ctrl = new \controler\TypeCadeauControler();
 
-$typeCadeau_list = $ctrl->getAllType();
+        $typeCadeau_list = $ctrl->getAllType();
 
-foreach ($typeCadeau_list as $type)
-{
-    $type->nom = utf8_encode($type->nom);
-    echo "<option value='$evt->id'>$evt->nom</option>";
+        foreach ($typeCadeau_list as $type) {
+            $type->nom = utf8_encode($type->nom);
+            echo "<option value='$type->id'>$type->nom</option>";
+        }
+
+        echo "</select><input type='submit' class='btn btn-primary' value='Créer le cadeau'> ";
+        echo "</form>";
     }
 
     else if ($_GET["type"] == "liste")

@@ -2,7 +2,7 @@
 
 namespace model;
 
-include_once MODEL_PATH . "Model.class.php";
+include_once "Model.class.php";
 
 /**
  * 
@@ -18,21 +18,21 @@ class cadeau extends Model {
 	/**
 	 * @var String
 	 */
-	public $dateEvenement;
+	public $description;
 
 	/**
 	 * @var String
 	 */
-	public $commentaire;
+	public $lien;
+
+	/**
+	 * @var int
+	 */
+	public $type_cadeau_id;
 
 	/**
 	 * @var int
 	 */
 	public $liste_id;
-
-	/**
-	 * @var int
-	 */
-	public $utilisateur_id;
 
 }

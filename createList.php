@@ -8,8 +8,10 @@
 
 session_start();
 
+if (! isset ($_SESSION["id"]))
+    header("location: index.php");
+
 include_once "application/config.php";
-include_once "service/check_auth.php";
 include "header.html";
 include_once MODEL_PATH . "liste.class.php";
 include_once CONTROLER_PATH . "ListControler.class.php";
@@ -25,7 +27,7 @@ $liste = new \model\liste();
 $liste->nom = $_GET["nom"];
 $liste->dateEvenement = $_GET["date"];
 $liste->evenement_id = $_GET["idEvenement"];
-$liste->commentaire = ! isset ($_GET["commentaire"]) ? $_GET["commentaire"] : "NULL";
+$liste->commentaire =  isset ($_GET["commentaire"]) ? $_GET["commentaire"] : "NULL";
 
 $liste->utilisateur_id = $_SESSION["id"];
 

@@ -2,7 +2,10 @@
 
     session_start();
 
-    include_once ("application/config.php");
+if (! isset ($_SESSION["id"]))
+    header("location: index.php");
+
+    include_once "application/config.php";
     include("header.html");
 
     include_once CONTROLER_PATH . "EvenementControler.class.php";
@@ -44,7 +47,9 @@
             ?>
             <div class="info">
                 <?php
-                    echo "<h2>$usr->prenom $usr->nom ($usr->pseudo)</h2>";
+                    echo "<h3>$usr->prenom $usr->nom ($usr->pseudo)</h3>
+                    <p>Date de naissance :" . date("d/m/Y", strtotime($usr->naissance)) . "</p>
+                    <p>Ville : $usr->ville</p>";
 
                     $listCtrl = new \controler\ListControler();
 
@@ -52,20 +57,20 @@
 
                     $followers = $ctrl->trouverFollowers($usr->id);
 
-                    echo "<h4><a>" . count($liste) . " listes </a> | <a>" . count($followers) . " followers </a></h4>";
+                    echo "<h4>" . count($liste) . " listes </h4>";
                 ?>
             </div>
         </div>
 
         <?php
-        $usr_id = $_SESSION["id"];
+        $usr_id = $_GET["id"];
 
         $listCtrl = new \controler\ListControler();
 
         $liste = $listCtrl->trouverListes($usr_id);
 
         if (!count($liste))
-            echo "<p> Aucune liste à afficher </p>";
+            echo "<div class='list-thumb'><p> Aucune liste à afficher </p></div>";
         else {
             $evtCtrl = new \controler\EvenementControler();
 
@@ -75,8 +80,8 @@
 
                 echo "
                 <div class='list-thumb'>
-                <h4>$l->nom - $evt->nom</h4>
-                <p> $l->dateEvenement</p>"
+                <h4><a href='lists.php?type=cadeau&liste_id=$l->id'>$l->nom - $evt->nom</a></h4>
+                <p>" .  date("d/m/Y", strtotime($l->dateEvenement)) . "</p>"
                     . ($l->commentaire == "NULL" ? "" : ("<p>" . $l->commentaire . "</p>")) . "
                 </div>
                 ";

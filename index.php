@@ -22,7 +22,7 @@
         </form>
     </header>
     <div class="subscribe">
-        <form name="signup" method="post" class="signup" action="service/subscribe.php">
+        <form name="signup" method="post" class="signup" action="subscribe.php">
             <h2>Inscription:</h2>
 
             <div class="row">

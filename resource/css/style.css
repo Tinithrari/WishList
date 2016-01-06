@@ -78,7 +78,11 @@ header>.form-inline
     background-color: #ecf0f1;
     border-radius: 25px 25px 0 0;
     padding: 1%;
-    padding-top: 1.5%;
+}
+
+.info
+{
+    padding-left: 125px;
 }
 
 .profil-img
@@ -86,6 +90,7 @@ header>.form-inline
     float: left;
     border: solid;
     margin-right: 4%;
+    margin-top: 35px;
     width: 85px;
     height: 85px;
     overflow: hidden;

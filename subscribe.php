@@ -1,6 +1,8 @@
 <?php
 
-include_once "../application/config.php";
+ob_start();
+
+include_once "application/config.php";
 include_once CONTROLER_PATH . "UtilisateurControler.class.php";
 include_once MODEL_PATH . "utilisateur.class.php";
 /**
@@ -44,10 +46,10 @@ $message =  "
 </body>
 </html>";
 
+
 mail($user->mail, "Welcome to StarWish",
     "<h1> Welcome $user->prenom $user->nom</h1> <p> Here are your your personnal informations:</p><br> <p>Username: $user->pseudo</p><p>Password:" . $_POST["password"] . "</p>",
     null, "FROM: noreply@starwish.com");
 
-header("index.php");
-
+header("location: index.php");
 ?>

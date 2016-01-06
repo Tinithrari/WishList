@@ -51,14 +51,14 @@ class ListControler {
 
 	/**
 	 * @param int $id
-     * @return mixed Une liste ou null
+     * @return liste Une liste ou null
 	 */
 	public function getListeById($id){
 
-        if ($id == null ||! is_int($id) || $id < 1)
+        if ($id == null)
             return null;
 
-        $listReader = new ListeSQL();
+        $listReader = new listeSQL();
 
         return $listReader->findById($id);
 	}

@@ -8,32 +8,33 @@
 
 session_start();
 
-include_once "application/config.php";
-include_once "service/check_auth.php";
-include "header.html";
-include_once MODEL_PATH . "liste.class.php";
-include_once CONTROLER_PATH . "ListControler.class.php";
+if (! isset ($_SESSION["id"]))
+    header("location: index.php");
 
-if (! isset($_GET["nom"]) || ! isset($_GET["date"]) || ! isset($_GET["idEvenement"]) || !isset($_SESSION["id"]))
+include_once "application/config.php";
+include "header.html";
+include_once MODEL_PATH . "cadeau.class.php";
+include_once CONTROLER_PATH . "CadeauControler.class.php";
+
+if (! isset($_GET["nom"]) || ! isset($_GET["liste_id"]) || !isset($_GET["typeCadeau"]))
 {
     echo "<p>Erreur: Un des champs obligatoire n'est pas défini</p>";
     exit(1);
 }
 
-$liste = new \model\liste();
+$cadeau = new \model\cadeau();
 
-$liste->nom = $_GET["nom"];
-$liste->dateEvenement = $_GET["date"];
-$liste->evenement_id = $_GET["idEvenement"];
-$liste->commentaire = ! isset ($_GET["commentaire"]) ? $_GET["commentaire"] : "NULL";
+$cadeau->nom = $_GET["nom"];
+$cadeau->type_cadeau_id = $_GET["typeCadeau"];
+$cadeau->lien =  isset ($_GET["lien"]) ? $_GET["lien"] : "NULL";
+$cadeau->description = isset ($_GET["description"]) ? $_GET["description"] : "NULL";
+$cadeau->liste_id = $_GET["liste_id"];
 
-$liste->utilisateur_id = $_SESSION["id"];
+$ctrl = new \controler\CadeauControler();
 
-$ctrl = new \controler\ListControler();
+$ctrl->creerCadeau($cadeau);
 
-$ctrl->creerListe($liste);
-
-echo "<div class='jumbotron'><p> Liste créé avec succès </p><a href='profile.php'><p>Retour au profil</p></a></div>";
+echo "<div class='jumbotron'><p> Cadeau créé avec succès </p><a href='profile.php'><p>Retour au profil</p></a></div>";
 
 ?>
 </body>

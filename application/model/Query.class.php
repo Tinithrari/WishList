@@ -51,7 +51,7 @@ abstract class Query {
 
 	/**
 	 * @param int $id
-	 * @return utilisateur
+	 * @return mixed
 	 */
 	public function findById($id){
 		$this->db->prepare("SELECT * FROM $this->tableName WHERE id=?");

@@ -2,11 +2,12 @@
 
 namespace controler;
 
+use model\cadeauSQL;
 use model\ModelManager;
 
-include_once("../model/cadeau.class.php");
-include_once("../model/ModelManager.class.php");
-include_once("../model/cadeauSQL.class.php");
+include_once $_SERVER["DOCUMENT_ROOT"] . "/starwish/application/model/cadeau.class.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/starwish/application/model/ModelManager.class.php";
+include_once $_SERVER["DOCUMENT_ROOT"] . "/starwish/application/model/cadeauSQL.class.php";
 
 /**
  * 
@@ -53,6 +54,17 @@ class CadeauControler {
 
         $manager = ModelManager::getInstance();
         $manager->delete($c);
+	}
+
+	public function findAllCadeauxByIdListe($id)
+	{
+		if ($id == null)
+			return null;
+
+		$listReader = new cadeauSQL();
+
+
+		return $listReader->prepareFindWith("liste_id = ?", array($id))->execute();
 	}
 
 }
