@@ -45,7 +45,7 @@
             <input type="email" name="mail" class="form-control" placeholder="E-Mail" required>
             <br/>
             <br/>
-            <input type="text" name="ville" class="form-control" placeholder="Ville" required>
+            <input type="text" name="ville" class="form-control" placeholder="Ville">
             <br/>
             <br/>
             <input type="date" name="naissance" class="form-control" required>

@@ -97,20 +97,28 @@ class ModelManager {
 
 		$var=get_class_vars($classe);
 		$first = true;
-		for($i = 0; $i < count($var); $i++){
+
+		$cle = array_keys($var);
+
+		for($i = 0; $i < count($var) - 1; $i++){
 			if (!$first)
-				$sql.=",";
-			$sql.= "?=?";
+				$sql.=", ";
+			$sql.= "$cle[$i]=?";
+			$first=false;
 		}
-		$sql.="WHERE id = ?";
+		$sql.=" WHERE id = ?";
+
+		echo $sql;
 
 		$values=array();
 		foreach($var as $k => $v) {
-			$values[]=$k;
-			$values[] = $m->$k;
+			if ($k != "id")
+				$values[] = $m->$k;
 		}
+
 		$values[]=$m->id;
 		$db = Database::getInstance();
+
 		$db->prepare($sql);
 		$db->execute($values);
 	}

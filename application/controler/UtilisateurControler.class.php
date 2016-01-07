@@ -4,7 +4,7 @@ namespace controler;
 
 include_once($_SERVER["DOCUMENT_ROOT"] . "/starwish/application/model/ModelManager.class.php");
 include_once($_SERVER["DOCUMENT_ROOT"] . "/starwish/application/model/utilisateur.class.php");
-include_once($_SERVER["DOCUMENT_ROOT"] . "/starwish/application/model/UtilisateurSQL.class.php");
+include_once($_SERVER["DOCUMENT_ROOT"] . "/starwish/application/model/utilisateurSQL.class.php");
 include_once($_SERVER["DOCUMENT_ROOT"] . "/starwish/application/model/Database.class.php");
 
 use model\Database;
@@ -143,27 +143,11 @@ class UtilisateurControler {
         $userManager->save($user);
 	}
 
-	/**
-	 * @param \model\utilisateur $user
-	 */
-	public function supprimerUtilisateur($user)
-	{
-        if (! $user instanceof utilisateur)
-            throw new \InvalidArgumentException("L'argument doit être un utilisateur");
-
-        if ($user->isNew())
-            throw new \BadFunctionCallException("Impossible de supprimer un utilisateur n'existant pas");
-
-        $userManager = ModelManager::getInstance();
-
-        $userManager->delete($user);
-	}
-
-	/**
-	 * @param \model\utilisateur $user
-	 */
-	public function modifierUtilisateur($user)
-	{
+    /**
+     * @param \model\utilisateur $user
+     */
+    public function modifierUtilisateur($user)
+    {
         if (! $user instanceof utilisateur)
             throw new \InvalidArgumentException("L'argument doit être un utilisateur");
 
@@ -173,6 +157,22 @@ class UtilisateurControler {
         $userManager = ModelManager::getInstance();
 
         $userManager->save($user);
+    }
+
+	/**
+	 * @param \model\utilisateur $user
+	 */
+	public function supprimerUtilisateur($user)
+	{
+        if (! $user instanceof \model\utilisateur)
+            throw new \InvalidArgumentException("L'argument doit être un utilisateur");
+
+        if ($user->isNew())
+            throw new \BadFunctionCallException("Impossible de supprimer un utilisateur n'existant pas");
+
+        $userManager = ModelManager::getInstance();
+
+        $userManager->delete($user);
 	}
 
 }

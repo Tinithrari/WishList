@@ -85,7 +85,7 @@ class Database {
 	public function fetchAll($classname = false){
         if (! $classname)
             return $this->stmt->fetchAll(\PDO::FETCH_ASSOC);
-        return $this->stmt->fetchAll(\PDO::FETCH_CLASS, $classname);
+        return $this->stmt->fetchAll(\PDO::FETCH_CLASS|\PDO::FETCH_PROPS_LATE, $classname);
 	}
 
 	/**

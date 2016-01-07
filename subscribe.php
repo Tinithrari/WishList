@@ -1,16 +1,8 @@
 <?php
 
-ob_start();
-
 include_once "application/config.php";
 include_once CONTROLER_PATH . "UtilisateurControler.class.php";
 include_once MODEL_PATH . "utilisateur.class.php";
-/**
- * Created by PhpStorm.
- * User: Tinithrari
- * Date: 05/01/2016
- * Time: 12:02
- */
 
 if (! isset($_POST["prenom"]) || ! isset($_POST["nom"]) || ! isset($_POST["username"]) || ! isset($_POST["password"])
     || ! isset($_POST["mail"]) || ! isset($_POST["naissance"])) {

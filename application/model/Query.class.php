@@ -45,6 +45,7 @@ abstract class Query {
 	public function __construct() {
         $this->className = get_class($this);
         $tmp = Query::stripNamespaceFromClassName($this);
+		$this->className = substr($this->className, 0, strlen($this->className)-3);
         $this->tableName = substr($tmp,0,strlen($tmp)-3);
         $this->db =  \model\Database::getInstance();
 	}

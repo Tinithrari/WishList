@@ -20,8 +20,6 @@ $ctrl = new \model\utilisateurSQL();
 
 $userList = $ctrl->prepareFindWith("nom LIKE '" . $_GET["search"] . "%' OR prenom LIKE '" . $_GET["search"] . "%' OR pseudo LIKE '". $_GET["search"] ."%'", array())->execute();
 
-echo count($userList) . $_GET{"search"};
-
 echo "<div class='list-container'>";
 
 foreach ($userList as $user)

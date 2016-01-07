@@ -6,6 +6,7 @@ if (! isset ($_SESSION["id"]))
     include_once("application/model/cadeau.class.php");
     include_once("application/model/liste.class.php");
     include_once("application/controler/ListControler.class.php");
+    include_once("application/controler/UtilisateurControler.class.php");
     include_once("application/controler/EvenementControler.class.php");
     include_once("application/controler/CadeauControler.class.php");
     include_once("header.html");
@@ -86,6 +87,23 @@ if (! isset ($_SESSION["id"]))
                     ";
                 }
             }
+        }
+        else if ($_GET["type"] == "following")
+        {
+            $ctrl = new \controler\UtilisateurControler();
+
+            $userList = $ctrl->trouverFollowing($_SESSION["id"]);
+
+            if (count($userList)) {
+                foreach ($userList as $user) {
+                    echo "<div class='profil-thumbnail'>
+                    <img src='" . ($user->chemin_photo == "NULL" ? "resource/img/DefaultAvatar.png" : $user->chemin_photo) . "' class=\"profil-icon\">
+                    <h4><a href='profile.php?id=$user->id'>$user->prenom $user->nom ($user->pseudo)</a></h4>
+                    </div>";
+                }
+            }
+            else
+                echo "<p> Aucun following à afficher </p>";
         }
         else
         {

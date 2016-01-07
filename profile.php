@@ -58,6 +58,9 @@ if (! isset ($_SESSION["id"]))
                     $followers = $ctrl->trouverFollowers($usr->id);
 
                     echo "<h4>" . count($liste) . " listes </h4>";
+
+                if ($_GET["id"] == $_SESSION["id"])
+                    echo "<a href='modifyProfile.php'> Modifier le profil </a>";
                 ?>
             </div>
             <?php
