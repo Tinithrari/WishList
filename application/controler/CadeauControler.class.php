@@ -56,13 +56,22 @@ class CadeauControler {
         $manager->delete($c);
 	}
 
+	public function getCadeauById($id)
+	{
+		if ($id == null)
+			return null;
+
+		$query = new cadeauSQL();
+
+		return $query->findById($id);
+	}
+
 	public function findAllCadeauxByIdListe($id)
 	{
 		if ($id == null)
 			return null;
 
 		$listReader = new cadeauSQL();
-
 
 		return $listReader->prepareFindWith("liste_id = ?", array($id))->execute();
 	}

@@ -164,3 +164,21 @@ header>.form-inline
 {
     margin-bottom: 5px;
 }
+
+.message-box
+{
+    margin-top: 2%;
+    padding: 10px;
+    margin-left: 5px;
+    border-radius: 12px;
+    float: left;
+    width: 20%;
+    background-color: #ecf0f1;
+}
+
+.message
+{
+    background-color: #d4dbdf;
+    overflow: hidden;
+    margin-bottom: 5px;
+}

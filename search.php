@@ -18,7 +18,7 @@ if (! isset($_GET["search"]) || $_GET["search"] == "")
 
 $ctrl = new \model\utilisateurSQL();
 
-$userList = $ctrl->prepareFindWith("nom LIKE '" . $_GET["search"] . "%' OR prenom LIKE '" . $_GET["search"] . "%' OR pseudo LIKE '". $_GET["search"] ."%'", array())->execute();
+$userList = $ctrl->prepareFindWith("nom LIKE '" . $_GET["search"] . "%' OR prenom LIKE '" . $_GET["search"] . "%' OR pseudo LIKE '". $_GET["search"] ."%' OR mail LIKE '" . $_GET["search"] . "%'", array())->execute();
 
 echo "<div class='list-container'>";
 
